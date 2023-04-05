@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F545318A29DDCE460073242E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545318929DDCE460073242E /* CustomTextField.swift */; };
+		F545318C29DDCE780073242E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545318B29DDCE780073242E /* LoginViewModel.swift */; };
 		F58DD81729DB41D200BAA065 /* ChatAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58DD81629DB41D200BAA065 /* ChatAIApp.swift */; };
 		F58DD81929DB41D200BAA065 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58DD81829DB41D200BAA065 /* ContentView.swift */; };
 		F58DD81B29DB41D200BAA065 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F58DD81A29DB41D200BAA065 /* Assets.xcassets */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F545318929DDCE460073242E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		F545318B29DDCE780073242E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		F58DD81329DB41D200BAA065 /* ChatAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F58DD81629DB41D200BAA065 /* ChatAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAIApp.swift; sourceTree = "<group>"; };
 		F58DD81829DB41D200BAA065 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 		F58DD84C29DB47FC00BAA065 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F545318B29DDCE780073242E /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				F58DD84F29DB487C00BAA065 /* Login.swift */,
+				F545318929DDCE460073242E /* CustomTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -300,8 +306,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F545318A29DDCE460073242E /* CustomTextField.swift in Sources */,
 				F58DD85029DB487C00BAA065 /* Login.swift in Sources */,
 				F58DD81929DB41D200BAA065 /* ContentView.swift in Sources */,
+				F545318C29DDCE780073242E /* LoginViewModel.swift in Sources */,
 				F58DD81729DB41D200BAA065 /* ChatAIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

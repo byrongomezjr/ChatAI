@@ -9,13 +9,56 @@
 import SwiftUI
 
 struct Login: View {
+    @StateObject var loginModel: LoginViewModel = .init()
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 15) {
-                Image(systemName: "person.2.fill")
-                    .font(.system(size: 30))
+                Image(systemName: "cube.fill")
+                    .font(.system(size: 35))
                     .foregroundColor(.gray)
+                
+                (Text("Welcome to ChatAI, ")
+                    .foregroundColor(.black) +
+                Text("Please login to continue...")
+                    .foregroundColor(.blue.opacity(0.60)))
+                .font(.title)
+                .fontWeight(.semibold)
+                .lineSpacing(10)
+                .padding(.top,15)
+                .padding(.trailing,40)
+                
+            //Custom TextField
+                CustomTextField(hint: "+1 888 888 88888", text: $loginModel.mobileNo)
+                    .disabled(loginModel.showOTPField)
+                    .opacity(loginModel.showOTPField ? 0.4 : 1)
+                    .padding(.top,50)
+                
+                CustomTextField(hint: "OTP Code", text: $loginModel.otpCode)
+                    .disabled(loginModel.showOTPField)
+                    .opacity(loginModel.showOTPField ? 0.4 : 1)
+                    .padding(.top,20)
+                
+                Button(action: loginModel.showOTPField ? loginModel.verifyOTPCOde: loginModel.getOTPCode) {
+                    HStack(spacing: 20){
+                        Text(loginModel.showOTPField ? "Verify Code" : "Get Code")
+                            .fontWeight(.semibold)
+                            .contentTransition(.identity)
+                        
+                        Image(systemName: "chevron.forward")
+                            .font(.title3)
+                    }
+                    .foregroundColor(.black)
+                    .padding(.horizontal,30)
+                    .padding(.vertical)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(.blue.opacity(0.20))
+                    }
+                }
+                .padding(.top,30)
             }
+            .padding(.leading,50)
+            .padding(.vertical,20)
         }
     }
 }
