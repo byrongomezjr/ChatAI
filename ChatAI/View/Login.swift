@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 struct Login: View {
     @StateObject var loginModel: LoginViewModel = .init()
@@ -28,7 +29,7 @@ struct Login: View {
                 .padding(.trailing,40)
                 
             //Custom TextField
-                CustomTextField(hint: "+1 888 888 88888", text: $loginModel.mobileNo)
+                CustomTextField(hint: "+1 888 888 8888", text: $loginModel.mobileNo)
                     .disabled(loginModel.showOTPField)
                     .opacity(loginModel.showOTPField ? 0.4 : 1)
                     .overlay(alignment: .trailing, content: {
@@ -69,6 +70,60 @@ struct Login: View {
                     }
                 }
                 .padding(.top,30)
+                
+                Text("OR")
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 30)
+                    .padding(.bottom,20)
+                    .padding(.leading,-60)
+                    .padding(.horizontal)
+                
+                HStack(spacing: 8){
+                    HStack{
+                        Image(systemName: "applelogo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 25, height: 25)
+                            .frame(height: 45)
+                        
+                        Text("Apple Sign In")
+                            .font(.callout)
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal,15)
+                    .background{
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(.black)
+                    }
+                    .overlay {
+                        SignInWithAppleButton { (request) in
+                            loginModel.nonce = randomNonceString()
+                            request.requestedScopes = [.email,.fullName]
+                            request.nonce = sha256(loginModel.nonce)
+                            
+                        } onCompletion: { (result) in
+                            switch result{
+                            case .success(let user):
+                                print("success")
+                                guard let credential = user.credential as? ASAuthorizationAppleIDCredential else{
+                                    print("error with firebase")
+                                    return
+                                }
+                                loginModel.appleAuthenticate(credential: credential)
+                            case.failure(let error):
+                                print(error.localizedDescription)
+                            }
+                        }
+                        .signInWithAppleButtonStyle(.white)
+                        .frame(height: 55)
+                        .blendMode(.overlay)
+                    }
+                    .clipped()
+                }
+
             }
             .padding(.leading,50)
             .padding(.vertical,20)
