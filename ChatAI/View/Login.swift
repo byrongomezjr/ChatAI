@@ -80,24 +80,9 @@ struct Login: View {
                     .padding(.horizontal)
                 
                 HStack(spacing: 8){
-                    HStack{
-                        Image(systemName: "applelogo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 25, height: 25)
-                            .frame(height: 45)
-                        
-                        Text("Apple Sign In")
-                            .font(.callout)
-                            .foregroundColor(.white)
-                            .lineLimit(1)
-                    }
-                    .foregroundColor(.white)
-                    .padding(.horizontal,15)
-                    .background{
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .fill(.black)
-                    }
+                    
+                    //Custom Apple Sign In Button
+                    CustomButtom()
                     .overlay {
                         SignInWithAppleButton { (request) in
                             loginModel.nonce = randomNonceString()
@@ -122,13 +107,49 @@ struct Login: View {
                         .blendMode(.overlay)
                     }
                     .clipped()
+                    
+                    //Custom Google Sign In Button
+                    CustomButtom(isGoogle: true)
+                    .overlay {
+                    }
+                    .clipped()
                 }
+                .padding(.leading,-60)
+                .frame(maxWidth: .infinity)
 
             }
             .padding(.leading,50)
             .padding(.vertical,20)
         }
         .alert(loginModel.errorMessage, isPresented: $loginModel.showError) {
+        }
+    }
+    
+    @ViewBuilder
+    func CustomButtom(isGoogle: Bool = false)->some View {
+        HStack{
+            Group{
+                if isGoogle{
+                    Image("google")
+                        .resizable()
+                }else{
+                    Image(systemName: "applelogo")
+                }
+            }
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 25, height: 25)
+            .frame(height: 45)
+            
+            Text("\(isGoogle ? "Google" : "Apple") Sign In")
+                .font(.callout)
+                .foregroundColor(.white)
+                .lineLimit(1)
+        }
+        .foregroundColor(.white)
+        .padding(.horizontal,15)
+        .background{
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(.black)
         }
     }
 }
