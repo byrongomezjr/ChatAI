@@ -23,6 +23,7 @@ class LoginViewModel: ObservableObject {
     
     //Firebase API's
     func getOTPCode(){
+        UIApplication.shared.closeKeyboard()
         Task{
             do {
                 //Disable when testing with real device
@@ -31,6 +32,8 @@ class LoginViewModel: ObservableObject {
                 let code = try await PhoneAuthProvider.provider().verifyPhoneNumber("+\(mobileNo)", uiDelegate: nil)
                 await MainActor.run(body: {
                     CLIENT_CODE = code
+                    //Enabling OTP Field when successful
+                    withAnimation(.easeInOut){showOTPField = true}
                 })
             } catch {
                 await handleError(error: error)
@@ -38,7 +41,8 @@ class LoginViewModel: ObservableObject {
         }
         
     }
-    func verifyOTPCOde(){
+    func verifyOTPCode(){
+        UIApplication.shared.closeKeyboard()
         Task{
             do{
                 let credential = PhoneAuthProvider.provider().credential(withVerificationID: CLIENT_CODE, verificationCode: otpCode)
@@ -59,5 +63,12 @@ class LoginViewModel: ObservableObject {
             errorMessage = error.localizedDescription
             showError.toggle()
         })
+    }
+}
+
+//Enxtensions
+extension UIApplication{
+    func closeKeyboard(){
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

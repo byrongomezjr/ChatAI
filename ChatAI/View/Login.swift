@@ -31,14 +31,27 @@ struct Login: View {
                 CustomTextField(hint: "+1 888 888 88888", text: $loginModel.mobileNo)
                     .disabled(loginModel.showOTPField)
                     .opacity(loginModel.showOTPField ? 0.4 : 1)
+                    .overlay(alignment: .trailing, content: {
+                        Button("Change"){
+                            withAnimation(.easeInOut){
+                                loginModel.showOTPField = false
+                                loginModel.otpCode = ""
+                                loginModel.CLIENT_CODE = ""
+                            }
+                        }
+                        .font(.caption)
+                        .foregroundColor(.blue)
+                        .opacity(loginModel.showOTPField ? 1 : 0)
+                        .padding(.trailing,40)
+                    })
                     .padding(.top,50)
                 
                 CustomTextField(hint: "OTP Code", text: $loginModel.otpCode)
-                    .disabled(loginModel.showOTPField)
-                    .opacity(loginModel.showOTPField ? 0.4 : 1)
+                    .disabled(!loginModel.showOTPField)
+                    .opacity(!loginModel.showOTPField ? 0.4 : 1)
                     .padding(.top,20)
                 
-                Button(action: loginModel.showOTPField ? loginModel.verifyOTPCOde: loginModel.getOTPCode) {
+                Button(action: loginModel.showOTPField ? loginModel.verifyOTPCode: loginModel.getOTPCode) {
                     HStack(spacing: 20){
                         Text(loginModel.showOTPField ? "Verify Code" : "Get Code")
                             .fontWeight(.semibold)
@@ -59,6 +72,8 @@ struct Login: View {
             }
             .padding(.leading,50)
             .padding(.vertical,20)
+        }
+        .alert(loginModel.errorMessage, isPresented: $loginModel.showError) {
         }
     }
 }

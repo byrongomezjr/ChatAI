@@ -12,7 +12,7 @@ struct CustomTextField: View {
     var hint: String
     @Binding var text: String
     
-    //MARK: View Properties
+    //View Properties
     @FocusState var isEnabled: Bool
     var contentType: UITextContentType = .telephoneNumber
     var body: some View {
