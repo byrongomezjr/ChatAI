@@ -10,6 +10,7 @@ import SwiftUI
 import Firebase
 import CryptoKit
 import AuthenticationServices
+import GoogleSignIn
 
 class LoginViewModel: ObservableObject {
     //View Properties
@@ -99,7 +100,7 @@ class LoginViewModel: ObservableObject {
                 
                 return
             }
-            //Successfully Loggin Into Firebase.
+            //Successfully Logged Into Firebase.
             print("Logged In Successfully.")
             withAnimation(.easeInOut){self.logStatus = true}
         }
@@ -110,6 +111,13 @@ class LoginViewModel: ObservableObject {
 extension UIApplication{
     func closeKeyboard(){
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    //Root Controller
+    func rootController()->UIViewController{
+        guard let window = connectedScenes.first as? UIWindowScene else{return .init()}
+        guard let viewcontroller = window.windows.last?.rootViewController else{return .init()}
+        return viewcontroller
     }
 }
 

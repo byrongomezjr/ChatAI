@@ -8,6 +8,9 @@
 
 import SwiftUI
 import AuthenticationServices
+import GoogleSignIn
+import GoogleSignInSwift
+import Firebase
 
 struct Login: View {
     @StateObject var loginModel: LoginViewModel = .init()
@@ -20,7 +23,7 @@ struct Login: View {
                 
                 (Text("Welcome to ChatAI, ")
                     .foregroundColor(.black) +
-                Text("Please login to continue...")
+                 Text("Please login to continue...")
                     .foregroundColor(.blue.opacity(0.60)))
                 .font(.title)
                 .fontWeight(.semibold)
@@ -28,7 +31,7 @@ struct Login: View {
                 .padding(.top,15)
                 .padding(.trailing,40)
                 
-            //Custom TextField
+                //Custom TextField
                 CustomTextField(hint: "+1 888 888 8888", text: $loginModel.mobileNo)
                     .disabled(loginModel.showOTPField)
                     .opacity(loginModel.showOTPField ? 0.4 : 1)
@@ -71,91 +74,17 @@ struct Login: View {
                 }
                 .padding(.top,30)
                 
-                Text("OR")
-                    .foregroundColor(.gray)
-                    .frame(maxWidth: .infinity)
-                    .padding(.top, 30)
-                    .padding(.bottom,20)
-                    .padding(.leading,-60)
-                    .padding(.horizontal)
-                
-                HStack(spacing: 8){
-                    
-                    //Custom Apple Sign In Button
-                    CustomButtom()
-                    .overlay {
-                        SignInWithAppleButton { (request) in
-                            loginModel.nonce = randomNonceString()
-                            request.requestedScopes = [.email,.fullName]
-                            request.nonce = sha256(loginModel.nonce)
-                            
-                        } onCompletion: { (result) in
-                            switch result{
-                            case .success(let user):
-                                print("success")
-                                guard let credential = user.credential as? ASAuthorizationAppleIDCredential else{
-                                    print("error with firebase")
-                                    return
-                                }
-                                loginModel.appleAuthenticate(credential: credential)
-                            case.failure(let error):
-                                print(error.localizedDescription)
-                            }
-                        }
-                        .signInWithAppleButtonStyle(.white)
-                        .frame(height: 55)
-                        .blendMode(.overlay)
-                    }
-                    .clipped()
-                    
-                    //Custom Google Sign In Button
-                    CustomButtom(isGoogle: true)
-                    .overlay {
-                    }
-                    .clipped()
-                }
-                .padding(.leading,-60)
-                .frame(maxWidth: .infinity)
-
             }
-            .padding(.leading,50)
-            .padding(.vertical,20)
-        }
-        .alert(loginModel.errorMessage, isPresented: $loginModel.showError) {
+                .padding(.leading,50)
+                .padding(.vertical,20)
+            }
+            .alert(loginModel.errorMessage, isPresented: $loginModel.showError) {
+            }
         }
     }
     
-    @ViewBuilder
-    func CustomButtom(isGoogle: Bool = false)->some View {
-        HStack{
-            Group{
-                if isGoogle{
-                    Image("google")
-                        .resizable()
-                }else{
-                    Image(systemName: "applelogo")
-                }
-            }
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 25, height: 25)
-            .frame(height: 45)
-            
-            Text("\(isGoogle ? "Google" : "Apple") Sign In")
-                .font(.callout)
-                .foregroundColor(.white)
-                .lineLimit(1)
-        }
-        .foregroundColor(.white)
-        .padding(.horizontal,15)
-        .background{
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(.black)
+    struct Login_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
         }
     }
-}
-
-struct Login_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
