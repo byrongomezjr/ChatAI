@@ -21,6 +21,7 @@
 		F58DD84829DB43E300BAA065 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F58DD84729DB43E300BAA065 /* GoogleSignInSwift */; };
 		F58DD84A29DB451700BAA065 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58DD84929DB451700BAA065 /* GoogleService-Info.plist */; };
 		F58DD85029DB487C00BAA065 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58DD84F29DB487C00BAA065 /* Login.swift */; };
+		F5DAA2E529EE262B0024C9F1 /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = F5DAA2E429EE262B0024C9F1 /* OpenAISwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5DAA2E529EE262B0024C9F1 /* OpenAISwift in Frameworks */,
 				F58DD84829DB43E300BAA065 /* GoogleSignInSwift in Frameworks */,
 				F58DD84329DB431D00BAA065 /* FirebaseAuth in Frameworks */,
 				F58DD84629DB43E300BAA065 /* GoogleSignIn in Frameworks */,
@@ -185,6 +187,7 @@
 				F58DD84229DB431D00BAA065 /* FirebaseAuth */,
 				F58DD84529DB43E300BAA065 /* GoogleSignIn */,
 				F58DD84729DB43E300BAA065 /* GoogleSignInSwift */,
+				F5DAA2E429EE262B0024C9F1 /* OpenAISwift */,
 			);
 			productName = ChatAI;
 			productReference = F58DD81329DB41D200BAA065 /* ChatAI.app */;
@@ -262,6 +265,7 @@
 			packageReferences = (
 				F58DD84129DB431D00BAA065 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				F58DD84429DB43E300BAA065 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				F5DAA2E329EE262B0024C9F1 /* XCRemoteSwiftPackageReference "OpenAISwift" */,
 			);
 			productRefGroup = F58DD81429DB41D200BAA065 /* Products */;
 			projectDirPath = "";
@@ -682,6 +686,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		F5DAA2E329EE262B0024C9F1 /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamrushy/OpenAISwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -699,6 +711,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F58DD84429DB43E300BAA065 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		F5DAA2E429EE262B0024C9F1 /* OpenAISwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5DAA2E329EE262B0024C9F1 /* XCRemoteSwiftPackageReference "OpenAISwift" */;
+			productName = OpenAISwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

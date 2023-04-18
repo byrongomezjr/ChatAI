@@ -12,6 +12,11 @@ import GoogleSignIn
 import GoogleSignInSwift
 import Firebase
 
+//Custom Color
+struct CustomColor {
+    static let myColor = Color("oceanBlue")
+}
+
 struct Login: View {
     @StateObject var loginModel: LoginViewModel = .init()
     var body: some View {
@@ -22,9 +27,9 @@ struct Login: View {
                     .foregroundColor(.gray)
                 
                 (Text("Welcome to ChatAI, ")
-                    .foregroundColor(.black) +
+                    .foregroundColor(.gray) +
                  Text("Please login to continue...")
-                    .foregroundColor(.blue.opacity(0.60)))
+                    .foregroundColor(CustomColor.myColor.opacity(0.80)))
                 .font(.title)
                 .fontWeight(.semibold)
                 .lineSpacing(10)
@@ -69,14 +74,26 @@ struct Login: View {
                     .padding(.vertical)
                     .background {
                         RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .fill(.blue.opacity(0.20))
+                            .fill(.blue.opacity(0.30))
                     }
                 }
                 .padding(.top,30)
                 
+                //Image Logo & Text
+                Image("robot")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                
+                    .foregroundColor(.blue)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top,40)
+                    .padding(.bottom,10)
+                    .padding(.leading,-60)
+                    .padding(.horizontal)
+                
             }
                 .padding(.leading,50)
-                .padding(.vertical,20)
+                .padding(.vertical,30)
             }
             .alert(loginModel.errorMessage, isPresented: $loginModel.showError) {
             }
